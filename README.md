@@ -19,5 +19,11 @@ Make sure that you have the following installed:
  `npm install`
 
  `npm start`
+ # Images
+ - I created two versions of the  backend and client image 
+## The link to the docker  backend  Repository
+ - https://hub.docker.com/repository/docker/mjix/backend/general 
+## The link to the docker  client   Repository
+ - https://hub.docker.com/repository/docker/mjix/client/general
 
  ### Go ahead a nd add a product (note that the price field only takes a numeric input)
