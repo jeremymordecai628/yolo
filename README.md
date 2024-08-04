@@ -25,5 +25,9 @@ Make sure that you have the following installed:
  - https://hub.docker.com/repository/docker/mjix/backend/general 
 ## The link to the docker  client   Repository
  - https://hub.docker.com/repository/docker/mjix/client/general
+ ## Virtual machine   
+ the ansible.cfg file and the  invetory file connects to a virtual machine using ansible 
+ ## playbook
+ -The playbook.yaml  uses the vars files to download docker and docker compose and also the file it self clones a repo  into the virtual machine 
 
  ### Go ahead a nd add a product (note that the price field only takes a numeric input)
