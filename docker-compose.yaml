@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  backend:
+    build: 
+     context: ./backend
+     dockerfile: dockerfile2
+    image: mjix/backend:V2.2
+    container_name: backend
+    ports:
+      -"5000:5000"
+    volumes:
+      -backend-data: /var/lib/backend-data
+    networks:
+      - my_network
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/mydatabase
+
+  client:
+  build :
+    context: ./client
+    dockerfile : Dockerfile
+    image: mjix/client:v1.0.1
+    container_name: client
+    networks:
+      - my_network
+    ports:
+      - "3000:3000"
+      volumes:
+      - client-data:/var/lib/client-data
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    networks:
+      - my_network
+    volumes:
+      - mongo-data:/var/lib/data/db
+
+networks:
+  my_network:
+  driver: bridge
+
+volumes:
+  backend-data:
+    driver: local
+  client-data:
+    driver: local
+  mongo-data:
+    driver: local
