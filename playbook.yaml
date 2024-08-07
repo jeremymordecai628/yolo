@@ -1,20 +1,49 @@
 ---
-- name: Setup yolo
-  hosts: 
-  become: true
+- name: Provisioning and deployment
+  hosts: all
+  become: yes
   vars_files:
-  -vars/dockersetup.yaml
-  -vars/myfile.yml 
+    - var.yml
 
-  roles:
-    - role: clone
-    - role: docker
-    - role: compose
-  
+  tasks:
+    - name: Update
+      apt:
+        update_cache: yes
 
-  task:
-    - name: Clone repository
-      git:
-          repo: 'https://github.com/jeremymordecai628/yolo.git'
-          dest: /home/vagrant/webapp
-          version: master
+    - name: Install Docker and Docker Compose
+      apt:
+        name:
+          - docker.io
+          - docker-compose
+        state: present
+
+    - name: Create Docker network
+      docker_network:
+        name: "{{ network_name }}"
+        state: present
+
+    - name: Create Mongo volume
+      docker_volume:
+        name: "{{ mongo_volume }}"
+        state: present
+
+
+    - name: Copy hosts file
+      copy:
+        src: hosts
+        dest: /etc/hosts
+
+    - name: Copy docker-compose file
+      copy:
+        src: docker-compose.yaml
+        dest: /home/yolo/docker-compose.yaml
+
+    - name: Start services with Docker Compose
+      command: docker-compose up -d
+      args:
+        chdir: /home/yolo
+
+  my_roles:
+    - backend
+    - datadase
+    - client 
