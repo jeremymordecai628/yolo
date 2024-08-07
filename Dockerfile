@@ -1,5 +1,5 @@
 # Use the official Node.js image as the base image
-FROM node:14-alpine AS base
+FROM node:16-alpine3.18 AS base
 
 # Set the working directory inside the container
 WORKDIR /client
