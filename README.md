@@ -50,4 +50,8 @@ Install the docker engine here:
 ## How to terminate the application completely
  `docker compose down`
 
-## The Docker images used in this application are sourced from this repository
+## The Docker images used in this application are sourced from this repository 
+- https://hub.docker.com/repositories/mjix
+
+# Screenshot  of  the project running 
+![WhatsApp Image 2024-08-07 at 9 05 38 PM](https://github.com/user-attachments/assets/ae12a8c7-7ac2-44ec-a443-7f51a8d929f2)
