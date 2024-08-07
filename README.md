@@ -55,3 +55,31 @@ Install the docker engine here:
 
 # Screenshot  of  the project running 
 ![WhatsApp Image 2024-08-07 at 9 05 38 PM](https://github.com/user-attachments/assets/ae12a8c7-7ac2-44ec-a443-7f51a8d929f2)
+
+
+# IP3
+
+# Project Structure
+    yolo/
+    |
+    |── playbook.yaml
+    |── vars.yml
+    |── hosts
+    |── my_roles/
+    │   ├── backend/
+    │   │   └──tasks/
+    │          └── main.yml
+    │   │   
+    │   ├── client/
+    │   │   └── tasks/
+    │   │       └── main.yml
+    │   │   
+    │   └── database/
+    │        ├── tasks/
+    │        │   └── main.yml
+    │          
+    └── Vagrantfile
+
+# Summary Description and running of the project 
+   ## Summary
+  
