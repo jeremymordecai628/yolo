@@ -1,0 +1,25 @@
+---
+- name: Clone repository
+  git:
+    repo: "{{ repo_url }}"
+    dest: /home/yolo
+    version: "{{ repo_version }}"
+
+- name: Build backend Docker image
+  docker_image:
+    name:  mjix/backend:V2.2
+    build:
+      path: /home/yolo/backend
+    source: build
+    state: present
+
+- name: Run backend container
+  docker_container:
+    name: backend-container
+    image: mjix/backend:V2.2
+    state: started
+    ports:
+      - "{{ backend_port }}:5000"
+    networks:
+      - "{{ network_name }}"
+    hostname: backend.local

@@ -1,10 +1,10 @@
 ---
 network_name: my_network
-mongodb_volume: mongo-data
+mongo_volume: mongo-data
 
-frontend_port: 3000
+client_port: 3000
 backend_port: 5000
-mongodb_port: 27017
+mongo_port: 27017
 
-repository_url: "https://github.com/jeremymordecai628/yolo.git"
-repository_version: "main"
+repo_url: "https://github.com/jeremymordecai628/yolo.git"
+repo_version: "main"

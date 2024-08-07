@@ -1,0 +1,25 @@
+---
+- name: Clone repository
+  git:
+    repo: "{{ repo_url }}"
+    dest: /home/yolo
+    version: "{{ repo_version }}"
+
+- name: Build client Docker image
+  docker_image:
+    name:  mjix/client:v1.0.1
+    build:
+      path: /home/yolo/client
+    source: build
+    state: present
+
+- name: Run client container
+  docker_container:
+    name: client 
+    image:  mjix/client:v1.0.1
+    state: started
+    ports:
+      - "{{ client_port }}:3000"
+    networks:
+      - "{{ network_name }}"
+    hostname: client.local

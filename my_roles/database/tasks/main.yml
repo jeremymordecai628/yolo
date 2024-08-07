@@ -1,0 +1,11 @@
+---
+- name: Run mongo container
+  docker_container:
+    name: mongo 
+    image:  mongo:6.0
+    ports:
+      - "{{ client_port }}:27017"
+    networks:
+      - "{{ network_name }}"
+    volumes: 
+      - "{{mongo_volume}}"
