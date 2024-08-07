@@ -1,0 +1,4 @@
+# Custom service hostnames
+127.0.0.1   backend.local
+127.0.0.1   client.local
+127.0.0.1   mongodb.local
