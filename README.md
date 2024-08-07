@@ -81,5 +81,6 @@ Install the docker engine here:
     └── Vagrantfile
 
 # Summary Description and running of the project 
-   ## Summary
-  
+   ## Vangrant up command
+   
+  ![vagrannt up](https://github.com/user-attachments/assets/761a4df1-dfb9-415d-a93f-a38534567c08)
