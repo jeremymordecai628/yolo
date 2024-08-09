@@ -14,7 +14,7 @@ services:
 
   client:
     build : ./client 
-    image: mjix/client:v1.0.1
+    image: mjix/backend:V2.3
     container_name: client
     networks:
       - my_network 
