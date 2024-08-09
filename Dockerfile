@@ -4,6 +4,9 @@ FROM node:16-alpine3.18 AS base
 # Set the working directory inside the container
 WORKDIR /client
 
+# Copy the package.json and package-lock.json (if available)
+COPY ./client/package*.json ./
+
 # Install the dependencies
 RUN npm install
 
@@ -25,4 +28,4 @@ RUN  npm test
 #Stage2 : Build 
 FROM base AS build
 #Run build command for production 
-RUN npm build
+RUN npm run build
