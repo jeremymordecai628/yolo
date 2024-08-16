@@ -84,3 +84,55 @@ Install the docker engine here:
    ## Vangrant up command
    
   ![vagrannt up](https://github.com/user-attachments/assets/761a4df1-dfb9-415d-a93f-a38534567c08)
+
+
+## YAML File Explanation
+
+### Deployment
+
+This section defines a Kubernetes Deployment for a backend application.
+
+- **apiVersion: apps/v1**: Specifies the API version for the Deployment resource.
+- **kind: Deployment**: Indicates that this is a Deployment resource.
+- **metadata**:
+  - **name: my_backend**: Names the Deployment "my_backend".
+  - **labels**: Adds a label `app: backend` to the Deployment.
+- **spec**:
+  - **replicas: 3**: Specifies that three replicas (pods) of the application should be running.
+  - **selector**:
+    - **matchLabels**:
+      - **app: backend**: Selects pods with the label `app: backend`.
+  - **template**:
+    - **metadata**:
+      - **labels**:
+        - **app: backend**: Adds the label `app: backend` to the pods.
+    - **spec**:
+      - **containers**:
+        - **name: backend-container**: Names the container "backend-container".
+        - **image: mjix/backend:V2.2**: Uses the Docker image `mjix/backend:V2.2`.
+        - **resources**:
+          - **limits**:
+            - **memory: "256Mi"**: Limits the memory usage to 256 MiB.
+            - **cpu: "500m"**: Limits the CPU usage to 500 millicores.
+          - **requests**:
+            - **memory: "128Mi"**: Requests 128 MiB of memory.
+            - **cpu: "250m"**: Requests 250 millicores of CPU.
+        - **ports**:
+          - **containerPort: 5000**: Exposes port 5000 on the container.
+
+### Service
+
+This section defines a Kubernetes Service to expose the backend application.
+
+- **apiVersion: v1**: Specifies the API version for the Service resource.
+- **kind: Service**: Indicates that this is a Service resource.
+- **metadata**:
+  - **name: my_backend_service**: Names the Service "my_backend_service".
+- **spec**:
+  - **type: LoadBalancer**: Specifies that the Service type is LoadBalancer, which will expose the service externally.
+  - **selector**:
+    - **app: backend**: Selects pods with the label `app: backend`.
+  - **ports**:
+    - **port: 5000**: Exposes port 5000 on the Service.
+    - **targetPort: 5000**: Forwards traffic to port 5000 on the pods.
+    - **nodeport: 30100**: Exposes the Service on port 30100 on each node in the cluster.
