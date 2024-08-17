@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: client
-        image:  mjix/backend:V2.3
+        image:  mjix/client:v1.0.1
         resources:
           limits:
             memory: "128Mi"
