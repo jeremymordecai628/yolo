@@ -6,15 +6,15 @@ services:
     image: mjix/backend:V2.2
     container_name: backend-container
     ports:
-      -"5000:5000"
+      - "5000:5000"
     networks:
       - my_network
     depends_on:
-      -mongo
+      - mongo
 
   client:
     build : ./client 
-    image: mjix/backend:V2.3
+    image: mjix/client:v1.0.1
     container_name: client
     networks:
       - my_network 
