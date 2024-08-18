@@ -65,6 +65,13 @@ Install the docker engine here:
     |── playbook.yaml
     |── vars.yml
     |── hosts
+    |
+    |   manifest/
+    |   |
+        |---backend.yaml
+        |___client.yaml
+        |____database.yaml
+
     |── my_roles/
     │   ├── backend/
     │   │   └──tasks/
@@ -90,7 +97,7 @@ Install the docker engine here:
 
 ### Deployment
 
-This section defines a Kubernetes Deployment for a backend application.
+This section defines a Kubernetes Deployment for a backend application the same configuration were used in frontend.
 
 - **apiVersion: apps/v1**: Specifies the API version for the Deployment resource.
 - **kind: Deployment**: Indicates that this is a Deployment resource.
@@ -98,7 +105,7 @@ This section defines a Kubernetes Deployment for a backend application.
   - **name: my_backend**: Names the Deployment "my_backend".
   - **labels**: Adds a label `app: backend` to the Deployment.
 - **spec**:
-  - **replicas: 3**: Specifies that three replicas (pods) of the application should be running.
+  - **replicas: 2**: Specifies that three replicas (pods) of the application should be running.
   - **selector**:
     - **matchLabels**:
       - **app: backend**: Selects pods with the label `app: backend`.
@@ -122,7 +129,7 @@ This section defines a Kubernetes Deployment for a backend application.
 
 ### Service
 
-This section defines a Kubernetes Service to expose the backend application.
+This section defines a Kubernetes Service to expose the backend and frontend application.
 
 - **apiVersion: v1**: Specifies the API version for the Service resource.
 - **kind: Service**: Indicates that this is a Service resource.
@@ -136,3 +143,46 @@ This section defines a Kubernetes Service to expose the backend application.
     - **port: 5000**: Exposes port 5000 on the Service.
     - **targetPort: 5000**: Forwards traffic to port 5000 on the pods.
     - **nodeport: 30100**: Exposes the Service on port 30100 on each node in the cluster.
+
+
+### Mongo  
+
+1. **StatefulSet Definition**:
+   - **apiVersion**: Specifies the API version (`apps/v1`).
+   - **kind**: Defines the type of resource (`StatefulSet`).
+   - **metadata**: Contains metadata about the StatefulSet, including its name (`mongo`).
+   - **spec**: Specifies the desired state of the StatefulSet.
+     - **serviceName**: The name of the service that governs this StatefulSet (`mongo-service`).
+     - **replicas**: Number of desired pods (1 in this case).
+     - **selector**: Used to identify the pods managed by this StatefulSet.
+       - **matchLabels**: Labels to match (`app: mongo`).
+     - **template**: The pod template.
+       - **metadata**: Labels for the pod (`app: mongo`).
+       - **spec**: Specification of the pod.
+         - **containers**: List of containers in the pod.
+           - **name**: Name of the container (`mongo`).
+           - **image**: Docker image to use (`mongo:latest`).
+           - **ports**: Ports to expose (`containerPort: 27017`).
+           - **volumeMounts**: Volumes to mount.
+             - **name**: Name of the volume (`mongo-data`).
+             - **mountPath**: Path to mount the volume (`/var/lib/data/db`).
+     - **volumeClaimTemplates**: Defines the PersistentVolumeClaims.
+       - **metadata**: Metadata for the volume claim (`name: mongo-data`).
+       - **spec**: Specification of the volume claim.
+         - **accessModes**: Access modes for the volume (`ReadWriteOnce`).
+         - **resources**: Resource requests.
+           - **requests**: Storage request (`10Gi`).
+
+2. **Service Definition**:
+   - **apiVersion**: Specifies the API version (`v1`).
+   - **kind**: Defines the type of resource (`Service`).
+   - **metadata**: Contains metadata about the service, including its name (`mongo-service`).
+   - **spec**: Specifies the desired state of the service.
+     - **selector**: Labels to select the pods (`app: mongo`).
+     - **ports**: Ports to expose.
+       - **protocol**: Protocol to use (`TCP`).
+       - **port**: Port to expose (`27017`).
+       - **targetPort**: Target port on the pod (`27017`).
+     - **clusterIP**: Set to `None` to ensure a stable IP for the StatefulSet.
+
+This configuration sets up a MongoDB StatefulSet with a single replica and a corresponding service to ensure stable network identity. The PersistentVolumeClaim ensures that the MongoDB data is stored persistently.
