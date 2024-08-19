@@ -10,9 +10,13 @@ This project involved the containerization and deployment of a full-stack yolo a
 
 # Requirements
 Install the docker engine here:
-- [Docker](https://docs.docker.com/engine/install/) 
+- [Docker](https://docs.docker.com/engine/install/)
+- 
+file:///home/modex/Documents/WhatsApp%20Image%202024-08-18%20at%205.21.26%20PM.jpeg
+file:///home/modex/Documents/WhatsApp%20Image%202024-08-18%20at%205.21.28%20PM.jpeg
 
-## How to launch the application 
+## How to launch 
+the application 
 ### Method 1 (faster)
 - NOTE: This method does not require cloning of this repository
 
